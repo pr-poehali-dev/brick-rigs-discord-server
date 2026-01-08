@@ -189,7 +189,7 @@ const Factions = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-2">
-                          <h4 className="text-xl font-bold">{faction.name}</h4>
+                          <h4 className="text-xl font-bold text-right">{faction.name}</h4>
                           <Badge variant="secondary" className="bg-red-500/20 text-red-500">
                             Закрыта
                           </Badge>
