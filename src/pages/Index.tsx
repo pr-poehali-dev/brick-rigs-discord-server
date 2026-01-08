@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,14 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
 
   const stats = {
     online: 47,
@@ -111,10 +120,35 @@ const Index = () => {
               ))}
             </div>
 
-            <Button className="bg-primary hover:bg-primary/90">
-              <Icon name="MessageCircle" size={18} className="mr-2" />
-              Discord
-            </Button>
+            <div className="flex gap-3">
+              <Button variant="outline" asChild>
+                <Link to="/factions">
+                  <Icon name="Shield" size={18} className="mr-2" />
+                  Фракции
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/forum">
+                  <Icon name="MessageSquare" size={18} className="mr-2" />
+                  Форум
+                </Link>
+              </Button>
+              {user ? (
+                <Button asChild>
+                  <Link to="/profile">
+                    <Icon name="User" size={18} className="mr-2" />
+                    {user.username}
+                  </Link>
+                </Button>
+              ) : (
+                <Button asChild>
+                  <Link to="/login">
+                    <Icon name="LogIn" size={18} className="mr-2" />
+                    Войти
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </nav>
